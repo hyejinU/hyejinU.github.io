@@ -1,32 +1,631 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Hyejin Yoo — database systems researcher at Seoul National University." />
   <title>Hyejin Yoo</title>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --soft: #f8fafc;
+      --accent: #1d4ed8;
+      --accent-hover: #1e40af;
+      --max: 940px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { color: var(--accent-hover); }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin: 0 auto;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      min-height: 62px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .name {
+      color: var(--text);
+      font-size: 1.06rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 0.92rem;
+      white-space: nowrap;
+    }
+
+    .nav-links a { color: #4b5563; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero {
+      padding: 82px 0 62px;
+      display: grid;
+      grid-template-columns: 1fr 200px;
+      gap: 54px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      margin: 0 0 12px;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.055em;
+      color: #111827;
+    }
+
+    .subtitle {
+      margin: 0 0 22px;
+      color: #374151;
+      font-size: 1.08rem;
+      font-weight: 500;
+    }
+
+    .intro {
+      max-width: 680px;
+      margin: 0;
+      font-size: 1.04rem;
+      color: #374151;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 8px 13px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #374151;
+      background: #fff;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: 0.15s ease;
+    }
+
+    .button:hover {
+      border-color: #cbd5e1;
+      background: var(--soft);
+      color: #111827;
+      transform: translateY(-1px);
+    }
+
+    #cv-button { display: none; }
+
+    .photo-wrap {
+      width: 190px;
+      height: 190px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--soft);
+      border: 1px solid var(--line);
+      justify-self: end;
+      position: relative;
+    }
+
+    .photo-wrap img {
+      width: 100%;
+      height: 100%;
+      display: none;
+      object-fit: cover;
+    }
+
+    #photo-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #94a3b8;
+      letter-spacing: -0.04em;
+    }
+
+    section {
+      padding: 56px 0;
+      border-top: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 28px;
+      color: #111827;
+      font-size: 1.45rem;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      margin: 0;
+      color: #111827;
+      font-size: 1.06rem;
+    }
+
+    .section-lead {
+      margin: -14px 0 30px;
+      max-width: 760px;
+      color: var(--muted);
+    }
+
+    .research-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .research-card p {
+      margin: 10px 0 0;
+      color: #4b5563;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .tag {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: #475569;
+      font-size: 0.8rem;
+      border: 1px solid #eef2f7;
+    }
+
+    .paper {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 18px;
+      padding: 22px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .paper:first-of-type { padding-top: 0; }
+    .paper:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .year {
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding-top: 2px;
+    }
+
+    .paper-title {
+      font-weight: 700;
+      color: #111827;
+    }
+
+    .paper-authors, .paper-venue {
+      margin-top: 5px;
+      color: #4b5563;
+      font-size: 0.94rem;
+    }
+
+    .paper-links {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 28px;
+      padding: 21px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .timeline-item:first-of-type { padding-top: 0; }
+    .timeline-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .time {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .meta {
+      color: #4b5563;
+      font-size: 0.93rem;
+      margin-top: 3px;
+    }
+
+    .detail {
+      color: #4b5563;
+      margin: 8px 0 0;
+      font-size: 0.95rem;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 46px;
+    }
+
+    .compact-list {
+      margin: 0;
+      padding-left: 20px;
+      color: #4b5563;
+    }
+
+    .compact-list li { margin-bottom: 10px; }
+
+    footer {
+      padding: 38px 0 52px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--line);
+    }
+
+    @media (max-width: 740px) {
+      header { position: static; }
+
+      nav {
+        align-items: flex-start;
+        padding: 17px 0;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .nav-links {
+        width: 100%;
+        overflow-x: auto;
+        gap: 17px;
+        padding-bottom: 2px;
+      }
+
+      .hero {
+        padding: 52px 0 42px;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .photo-wrap {
+        grid-row: 1;
+        width: 145px;
+        height: 145px;
+        justify-self: start;
+      }
+
+      h1 { font-size: 2.65rem; }
+
+      section { padding: 44px 0; }
+
+      .paper,
+      .timeline-item {
+        grid-template-columns: 1fr;
+        gap: 6px;
+      }
+
+      .two-col { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
-  <h1>Hyejin Yoo</h1>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="name" href="#">Hyejin Yoo</a>
+        <div class="nav-links">
+          <a href="#research">Research</a>
+          <a href="#publications">Publications</a>
+          <a href="#experience">Experience</a>
+          <a href="#education">Education</a>
+          <a id="nav-cv" href="CV_HyejinYoo.pdf" style="display:none;">CV</a>
+        </div>
+      </nav>
+    </div>
+  </header>
 
-  <p>
-    M.S. Student at Seoul National University
-  </p>
+  <main class="container">
+    <div class="hero">
+      <div>
+        <div class="eyebrow">Database Systems Researcher</div>
+        <h1>Hyejin Yoo</h1>
+        <p class="subtitle">M.S. Student · Seoul National University</p>
+        <p class="intro">
+          I am an M.S. student in Data Science at Seoul National University and a graduate researcher
+          in the VLDB Lab, advised by Prof. Sang–won Lee. My research interests include
+          <strong>database systems, concurrency control, OLTP systems, and storage systems</strong>.
+          My current work focuses on improving concurrency under write–write conflicts in
+          transaction processing systems.
+        </p>
 
-  <p>
-    I am interested in database systems, transaction processing,
-    concurrency control, and scalable OLTP systems.
-  </p>
+        <div class="links">
+          <a class="button" href="mailto:hjin.u@snu.ac.kr">Email</a>
+          <a class="button" href="https://github.com/hyejinU" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a class="button" href="https://www.linkedin.com/in/uhjin/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a class="button" id="cv-button" href="CV_HyejinYoo.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+        </div>
+      </div>
 
-  <h2>Research</h2>
-  <p>
-    My research focuses on improving concurrency and scalability
-    in modern database systems.
-  </p>
+      <div class="photo-wrap" aria-label="Profile photo">
+        <div id="photo-placeholder">HY</div>
+        <img
+          id="profile-photo"
+          src="profile.jpg"
+          alt="Hyejin Yoo"
+          onload="this.style.display='block'; document.getElementById('photo-placeholder').style.display='none';"
+        />
+      </div>
+    </div>
 
-  <h2>Contact</h2>
-  <p>
-    Email: your-email@example.com
-  </p>
+    <section id="research">
+      <h2>Research</h2>
+      <p class="section-lead">
+        I am interested in transaction processing and concurrency control for scalable OLTP systems,
+        especially in understanding and reducing synchronization bottlenecks under high contention.
+      </p>
+
+      <div class="research-card">
+        <h3>RCC: Speculative Write Versioning with Redo Logs</h3>
+        <p>
+          RCC is a concurrency control scheme that repurposes redo logs as speculative write versions
+          to pipeline update-conflicting transactions. I designed RCC and implemented it in MySQL 8.4
+          by extending its locking modules and transaction manager.
+        </p>
+        <div class="tags">
+          <span class="tag">Concurrency Control</span>
+          <span class="tag">OLTP</span>
+          <span class="tag">MVCC</span>
+          <span class="tag">Redo Logging</span>
+          <span class="tag">MySQL</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="publications">
+      <h2>Publications</h2>
+
+      <div class="paper">
+        <div class="year">2026</div>
+        <div>
+          <div class="paper-title">RCC: Speculative Write Versioning with Redo Logs</div>
+          <div class="paper-authors">
+            <strong>Hyejin Yoo*</strong>, Sungjae Moon*, Jonghyeok Park, and Sang–won Lee
+          </div>
+          <div class="paper-venue">arXiv:2607.19697 · *Equal contribution</div>
+          <div class="paper-links">
+            <a href="https://arxiv.org/abs/2607.19697" target="_blank" rel="noopener noreferrer">Paper ↗</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="year">2024</div>
+        <div>
+          <div class="paper-title">A Study of Transaction Blocking Time under Lock Contention</div>
+          <div class="paper-authors">
+            <strong>Hyejin Yoo</strong>, Sungjae Moon, Jonghyeok Park, Sang–won Lee, and Youngik Eom
+          </div>
+          <div class="paper-venue">Proceedings of the Korea Software Congress (KSC)</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience">
+      <h2>Research & Experience</h2>
+
+      <div class="timeline-item">
+        <div class="time">Mar. 2025 – Present</div>
+        <div>
+          <h3>Graduate Researcher · VLDB Lab</h3>
+          <div class="meta">Seoul National University · Advisor: Prof. Sang–won Lee</div>
+          <p class="detail">
+            Working on concurrency control and transaction processing in OLTP systems. Designed RCC
+            and implemented it in MySQL 8.4.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Jun. 2023 – Feb. 2025</div>
+        <div>
+          <h3>Undergraduate Research Intern · VLDB Lab</h3>
+          <div class="meta">Sungkyunkwan University · Advisor: Prof. Sang–won Lee</div>
+          <p class="detail">
+            Studied transaction blocking under lock contention and quantified how write conflicts can
+            dominate latency in OLTP workloads.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Feb. 2023 – Dec. 2024</div>
+        <div>
+          <h3>Team Leader & Backend Developer · Software Service Assistant</h3>
+          <div class="meta">Sungkyunkwan University</div>
+          <p class="detail">
+            Led the development of KingoCoin, a campus reward system serving university students.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Aug. 2021 – Dec. 2022</div>
+        <div>
+          <h3>Co-founder & Backend Engineer · CodiMe Inc.</h3>
+          <div class="meta">Seoul, South Korea</div>
+          <p class="detail">
+            Co-founded and launched CodiMe, a generative AI-based virtual styling application, and
+            delivered an investor-relations pitch to international investors in Grenoble, France.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">May 2021 – Dec. 2021</div>
+        <div>
+          <h3>Full Stack Developer Intern · Escare Inc.</h3>
+          <div class="meta">Seoul, South Korea</div>
+          <p class="detail">Developed a secure banking authentication prototype.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <h2>Education</h2>
+
+      <div class="timeline-item">
+        <div class="time">Mar. 2025 – Present</div>
+        <div>
+          <h3>Seoul National University</h3>
+          <div class="meta">M.S. in Data Science · Seoul, South Korea</div>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Mar. 2020 – Feb. 2025</div>
+        <div>
+          <h3>Sungkyunkwan University</h3>
+          <div class="meta">B.S. in Computer Science and Engineering · Suwon, South Korea</div>
+          <p class="detail">
+            Academic Excellence Scholarship (Fall 2024) · Sungkyun Software Scholarship, full tuition (2020–2021)
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="two-col">
+        <div>
+          <h2>Academic Service & Teaching</h2>
+          <ul class="compact-list">
+            <li>Research Session Chair, DASFAA 2026</li>
+            <li>Teaching Assistant, Introduction to Computing, Seoul National University, Spring 2026</li>
+            <li>Teaching Assistant, Computer Programming for Engineers, Sungkyunkwan University, Fall 2023</li>
+          </ul>
+        </div>
+
+        <div>
+          <h2>Awards</h2>
+          <ul class="compact-list">
+            <li>Grand Prize, AI Idea Contest, Sungkyunkwan University, 2023</li>
+            <li>Grand Prize, Uni-DTHON, Consortium of Six Major Universities in South Korea, 2022</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>International Experience</h2>
+
+      <div class="timeline-item">
+        <div class="time">Oct. 2026</div>
+        <div>
+          <h3>AUA–Tsinghua SIGS Youth Leadership Program</h3>
+          <div class="meta">Selected University Representative · Shenzhen, China</div>
+          <p class="detail">
+            Selected as one of two students from Seoul National University for a program hosted by
+            Tsinghua University under the Asian Universities Alliance.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Aug. 2022</div>
+        <div>
+          <h3>Global Challenge Program</h3>
+          <div class="meta">Outreach Coordinator · Silicon Valley, USA</div>
+          <p class="detail">
+            Visited UC Berkeley’s Sky Computing Lab and offices of NVIDIA, Google, and Oracle;
+            conducted in-person interviews with researchers and industry professionals.
+          </p>
+        </div>
+      </div>
+
+      <div class="timeline-item">
+        <div class="time">Jan. – Feb. 2023</div>
+        <div>
+          <h3>Global Capstone Design Program</h3>
+          <div class="meta">Participant · Baltimore, USA</div>
+          <p class="detail">
+            Collaborated with international peers and faculty at Johns Hopkins University.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="year"></span> Hyejin Yoo ·
+      <a href="mailto:hjin.u@snu.ac.kr">hjin.u@snu.ac.kr</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Show the CV links automatically once CV_HyejinYoo.pdf exists in the repository.
+    fetch("CV_HyejinYoo.pdf", { method: "HEAD" })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("cv-button").style.display = "inline-flex";
+          document.getElementById("nav-cv").style.display = "inline";
+        }
+      })
+      .catch(() => {});
+  </script>
 </body>
 </html>
