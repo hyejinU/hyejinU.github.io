@@ -17,6 +17,17 @@
     gtag('config', 'G-QFNDQT631M');
   </script>
 
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('v');
+  
+    if (code) {
+      gtag('event', 'contact_visit', {
+        contact_code: code
+      });
+    }
+  </script>
+
   <style>
     :root {
       --bg: #ffffff;
