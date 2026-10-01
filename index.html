@@ -310,6 +310,24 @@
         gap: 5px;
       }
 
+      .review-feedback {
+        margin-top: 0.8rem;
+        padding-left: 0.9rem;
+        border-left: 2px solid #bbb;
+      }
+      
+      .review-feedback blockquote {
+        margin: 0;
+        font-style: italic;
+        font-size: 0.95rem;
+      }
+      
+      .review-source {
+        margin-top: 0.35rem;
+        font-size: 0.82rem;
+        color: #777;
+      }
+
       section { padding: 39px 0; }
     }
   </style>
@@ -388,14 +406,27 @@
         <div class="year">2026</div>
         <div>
           <div class="paper-title">RCC: Speculative Write Versioning with Redo Logs</div>
+      
           <div class="authors">
             <strong>Hyejin Yoo*</strong>, Sungjae Moon*, Jonghyeok Park, and Sang–won Lee
           </div>
+      
           <div class="venue">arXiv:2607.19697 · *Equal contribution</div>
+      
           <div class="paper-note">
             Repurposes redo logs as speculative write versions so update-conflicting transactions
             can be pipelined rather than waiting for preceding transactions to commit.
           </div>
+      
+          <div class="review-feedback">
+            <blockquote>
+              “Intriguing topic that seems disregarded but certainly deserves exploration.”
+            </blockquote>
+            <div class="review-source">
+              — Anonymous reviewer, SIGMOD 2027 submission
+            </div>
+          </div>
+      
           <div class="paper-links">
             <a href="https://arxiv.org/abs/2607.19697" target="_blank" rel="noopener noreferrer">Paper ↗</a>
           </div>
